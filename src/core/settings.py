@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = str(os.environ.get("DEBUG")) == "1"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -80,7 +80,6 @@ DATABASES = {
     }
 }
 
-POSTGRES_READY = str(os.environ.get("POSTGRES_READY")) == "1"
 DB_USERNAME = os.environ.get("POSTGRES_USER")
 DB_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
 DB_DATABASE = os.environ.get("POSTGRES_DB")
@@ -90,7 +89,7 @@ DB_IS_AVAILABLE = all([
     DB_USERNAME, DB_PASSWORD, DB_DATABASE, DB_HOST, DB_PORT
 ])
 
-if DB_IS_AVAILABLE and POSTGRES_READY:
+if DB_IS_AVAILABLE:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
