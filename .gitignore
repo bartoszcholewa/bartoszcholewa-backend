@@ -130,4 +130,6 @@ dmypy.json
 
 # My own
 .idea
+.kube
+.hetzner-config
 
