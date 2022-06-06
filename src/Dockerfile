@@ -1,12 +1,24 @@
-FROM python:3.10.4-slim
+FROM python:3.10-alpine
 
-COPY . /app
+ADD ./requirements.txt /app/requirements.txt
+
+RUN set -ex \
+    && apk add --no-cache --virtual .build-deps postgresql-dev build-base \
+    && python -m venv /env \
+    && /env/bin/pip install --upgrade pip \
+    && /env/bin/pip install --no-cache-dir -r /app/requirements.txt \
+    && runDeps="$(scanelf --needed --nobanner --recursive /env \
+        | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
+        | sort -u \
+        | xargs -r apk info --installed \
+        | sort -u)" \
+    && apk add --virtual rundeps $runDeps \
+    && apk del .build-deps
+
+ADD . /app
 WORKDIR /app
 
-RUN python3 -m venv /opt/venv
+ENV VIRTUAL_ENV /env
+ENV PATH /env/bin:$PATH
 
-RUN /opt/venv/bin/pip install pip --upgrade && \
-    /opt/venv/bin/pip install -r requirements.txt && \
-    chmod +x entrypoint.sh
-
-CMD ["/app/entrypoint.sh"]
+CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "core.wsgi"]

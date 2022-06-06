@@ -1,6 +1,6 @@
 # helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 # helm repo update
-# helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx -f k8s/nginx/ingress-values.yaml --namespace ingress-nginx --create-namespace
+# helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx -f k8s/firststeps/1-ingress-values.yaml --namespace ingress-nginx --create-namespace
 controller:
   replicaCount: 1
   service:
