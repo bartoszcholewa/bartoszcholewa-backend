@@ -1,12 +1,11 @@
+# k apply -f k8s/django/bartoszcholewa-deployment.yaml
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: django-config
+  name: bartoszcholewa-config
 data:
   DJANGO_ALLOWED_HOSTS: "*"
-  STATIC_ENDPOINT_URL: "https://your_space_name.space_region.digitaloceanspaces.com"
-  STATIC_BUCKET_NAME: "your_space_name"
   DJANGO_LOGLEVEL: "info"
   DEBUG: "True"
   DATABASE_ENGINE: "postgresql_psycopg2"
@@ -32,9 +31,9 @@ spec:
           name: bartoszcholewa
           envFrom:
             - secretRef:
-                name: bartoszcholewa-django-secrets
+                name: bartoszcholewa-secrets
             - configMapRef:
-                name: django-config
+                name: bartoszcholewa-config
           ports:
             - containerPort: 8000
               name: gunicorn

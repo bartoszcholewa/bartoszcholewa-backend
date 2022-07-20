@@ -133,4 +133,5 @@ dmypy.json
 .kube
 .hetzner-config
 .env*
-
+/ansible/.fact_cache/
+/ansible/inventory/bartoszcholewa.pl
