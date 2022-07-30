@@ -13,10 +13,11 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  test_django:
+  test_django_job:
     uses: bartoszcholewa/bartoszcholewa-backend/.github/workflows/test-django.yaml@main
   build-and-push-image:
     runs-on: ubuntu-latest
+    needs: [ test_django_job ]
     permissions:
       contents: read
       packages: write
