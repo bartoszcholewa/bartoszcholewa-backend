@@ -14,6 +14,28 @@ jobs:
     defaults:
       run:
         working-directory: ./src
+    env:
+      DJANGO_SECRET_KEY: github-test-key
+      SQL_ENGINE: django.db.backends.postgresql
+      SQL_DATABASE: db
+      SQL_USER: user
+      SQL_PASSWORD: password
+      SQL_HOST: localhost
+      SQL_PORT: 5432
+    services:
+      postgres_db:
+        image: postgres:14.2-bullseye
+        env:
+          POSTGRES_DB: ${{ env.SQL_DATABASE }}
+          POSTGRES_USER: ${{ env.SQL_USER }}
+          POSTGRES_PASSWORD: ${{ env.SQL_PASSWORD }}
+        ports:
+          - "5432:5432"
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     strategy:
       max-parallel: 4
       matrix:
