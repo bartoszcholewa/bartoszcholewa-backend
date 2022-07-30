@@ -14,7 +14,7 @@ env:
 
 jobs:
   test_django:
-    uses: ./.github/workflows/test-django.yaml@main
+    uses: bartoszcholewa/bartoszcholewa-backend/.github/workflows/test-django.yaml@main
   build-and-push-image:
     runs-on: ubuntu-latest
     permissions:
