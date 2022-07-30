@@ -10,7 +10,7 @@ on:
 
 jobs:
   test_django_job:
-    uses: bartoszcholewa/bartoszcholewa-backend/.github/workflows/test-django@main
+    uses: bartoszcholewa/bartoszcholewa-backend/.github/workflows/test-django.yaml@main
   docker_build:
     runs-on: ubuntu-20.04
     needs: [ test_django_job ]
