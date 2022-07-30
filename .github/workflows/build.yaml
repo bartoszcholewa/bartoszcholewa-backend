@@ -1,0 +1,20 @@
+name: Build Docker Cintainer & Push to GitHub Registry
+
+on:
+  workflow_call:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test_django_job:
+    uses: bartoszcholewa/bartoszcholewa-backend/.github/workflows/test-django@main
+  docker_build:
+    runs-on: ubuntu-20.04
+    needs: [ test_django_job ]
+    env:
+      DJANGO_SECRET_KEY: github-test-key
+    steps:
+      - uses: actions/checkout@v2
