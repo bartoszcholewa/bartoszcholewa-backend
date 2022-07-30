@@ -1,5 +1,7 @@
 FROM python:3.10-alpine
 
+LABEL org.opencontainers.image.source https://github.com/bartoszcholewa/bartoszcholewa-backend
+
 ADD ./requirements.txt /app/requirements.txt
 
 RUN set -ex \
