@@ -60,6 +60,7 @@ jobs:
           
           # System
           GIT_COMMIT=${{ steps.vars.outputs.sha_short }}
+          RUN_NUMBER=${GITHUB_RUN_NUMBER}
           
           # Django
           DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}
@@ -106,3 +107,7 @@ jobs:
           echo $SINGLE_POD_NAME
           kubectl get pods
           kubectl exec -it $SINGLE_POD_NAME -- sh -c "python manage.py migrate --noinput"
+
+      - name: Collect Static
+        run: |
+          kubectl exec -it $SINGLE_POD_NAME -- sh -c "python manage.py collectstatic --noinput"
