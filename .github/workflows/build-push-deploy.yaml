@@ -58,6 +58,9 @@ jobs:
         run: |
           cat << EOF >> src/.env.prod
           
+          # System
+          GIT_COMMIT=${{ steps.vars.outputs.sha_short }}
+          
           # Django
           DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}
           DJANGO_SUPERUSER_USERNAME=${{ secrets.DJANGO_SUPERUSER_USERNAME }}
