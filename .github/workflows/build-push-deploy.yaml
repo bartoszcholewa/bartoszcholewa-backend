@@ -46,3 +46,11 @@ jobs:
           context: ./src
           push: true
           tags: ghcr.io/bartoszcholewa/bartoszcholewa-backend:latest,ghcr.io/bartoszcholewa/bartoszcholewa-backend:${{ steps.vars.outputs.sha_short }}
+
+      - name: Create kubeconfig
+        run: |
+          mkdir ${HOME}/.kube
+          echo ${{ secret.KUBE_CONFIG_DATA }} | base64 --decode > ${HOME}/.kube/config
+
+      - name: Test Kubernetes Config
+        run: kubectl get pods -w
