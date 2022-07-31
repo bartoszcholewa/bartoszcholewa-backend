@@ -54,8 +54,8 @@ jobs:
           mkdir ${HOME}/.kube
           echo ${{ secrets.KUBE_CONFIG_DATA }} | base64 --decode > ${HOME}/.kube/config
 
-      #      - name:
-      #          Update deployment secrets:
+      - name: Update deployment secrets
+
 
       - name: Update Deployment image
         run: |
@@ -64,6 +64,7 @@ jobs:
       - name: Wait for rollout to finish
         run: |
           kubectl rollout status deployment/bartoszcholewa-app
+          sleep 5
 
       - name: Migrate Database Command
         run: |
