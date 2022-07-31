@@ -1,45 +1,23 @@
 version: "3.9"
 
 services:
-#  web:
-  #    depends_on:
-  #      - db
-  #    build:
-  #      context: ./src
-  #      dockerfile: Dockerfile
-  #    image: bartoszcholewa-backend
-  #    env_file:
-  #      - src/.env
-  #    ports:
-  #      - "8000:8000"
-  #    command: sh -c "chmod +x /app/migrate.sh && sh /app/migrate.sh && /app/entrypoint.sh"
-
-  db:
-    image: postgres:alpine
-    restart: always
+  web:
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/app
     env_file:
       - src/.env
-    command: -p 5434
-    expose:
-      - 5434
     ports:
-      - "5434:5434"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - "8000:8000"
+    networks:
+      - web
+      - network
+    command: python manage.py runserver 0.0.0.0:8000
 
-  redis:
-    image: redis
-    restart: always
-    expose:
-      - 6388
-    ports:
-      - "6388:6388"
-    volumes:
-      - redis_data:/data
-    entrypoint: redis-server --appendonly yes --port 6388
-
-volumes:
-  postgres_data:
-  redis_data:
-
-
+networks:
+  web:
+    external: true
+  network:
+    internal: true

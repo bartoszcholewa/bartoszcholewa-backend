@@ -80,6 +80,7 @@ jobs:
           SQL_PORT=${{ secrets.SQL_PORT }}
           
           # AWS
+          USE_S3=True
           AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_STORAGE_BUCKET_NAME=${{ secrets.AWS_STORAGE_BUCKET_NAME }}
