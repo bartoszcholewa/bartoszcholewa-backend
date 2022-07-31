@@ -1,4 +1,4 @@
-name: Build Docker Container & Push to GitHub Registry
+name: Deploy to Kubernetes Cluster
 
 on:
   workflow_call:
@@ -8,19 +8,12 @@ on:
   pull_request:
     branches: [ main ]
 
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
-
 jobs:
   build_job:
     uses: bartoszcholewa/bartoszcholewa-backend/.github/workflows/build.yaml@main
-  build-and-push-image:
+  deploy-to-kubernetes:
     runs-on: ubuntu-latest
     needs: [ build_job ]
-    permissions:
-      contents: read
-      packages: write
 
     steps:
       - name: Checkout repository
