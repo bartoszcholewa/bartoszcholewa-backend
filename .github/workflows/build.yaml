@@ -46,6 +46,3 @@ jobs:
           context: ./src
           push: true
           tags: ghcr.io/bartoszcholewa/bartoszcholewa-backend:latest,ghcr.io/bartoszcholewa/bartoszcholewa-backend:${{ steps.vars.outputs.sha_short }}
-
-      - name: Test Kubernetes Config
-        run: kubectl get pods -w
