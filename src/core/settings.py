@@ -29,13 +29,6 @@ DEBUG = os.environ.get('DEBUG', False)
 GIT_COMMIT = os.environ.get('GIT_COMMIT', 'latest')
 RUN_NUMBER = os.environ.get('RUN_NUMBER', '0')
 
-ADMIN_FOOTER_DATA = {
-    'site_url': '',
-    'site_name': '',
-    'period': '',
-    'version': f'commit: {GIT_COMMIT}, run: {RUN_NUMBER} '
-}
-
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost').split(',')
 CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS', 'http://localhost').split(',')
 
@@ -139,7 +132,7 @@ if os.environ.get('USE_S3') == 'True':
     AWS_S3_REGION_NAME = 'eu-central-1'
     AWS_S3_SIGNATURE_VERSION = 's3v4'
     AWS_S3_ADDRESSING_STYLE = "virtual"
-    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}amazonaws.com'
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com'
     AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
 
     # s3 static settings
