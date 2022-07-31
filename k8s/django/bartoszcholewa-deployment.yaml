@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: bartoszcholewa
-          image: ghcr.io/bartoszcholewa/bartoszcholewa-backend-web:latest
+          image: ghcr.io/bartoszcholewa/bartoszcholewa-backend:latest
           imagePullPolicy: Always
           envFrom:
             - secretRef:
