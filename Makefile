@@ -1,61 +1,55 @@
-LOCAL=$(MAKE) -C environments/local
+LOCAL=environments/local
 
-status-local:
-	$(LOCAL) docker-compose ps
+status:
+	cd $(LOCAL); docker-compose ps
 
-build-local:
-	$(LOCAL) build
+build:
+	cd $(LOCAL); docker-compose build
 
-up-local:
-	$(LOCAL) up
+up:
+	cd $(LOCAL); docker-compose up
 
-stop-local:
-	$(LOCAL) stop
+stop:
+	cd $(LOCAL); docker-compose stop
 
-down-local:
-	$(LOCAL) down
+down:
+	cd $(LOCAL); docker-compose down
 
-restart-local:
-	$(LOCAL) restart
+restart:
+	cd $(LOCAL); docker-compose down && docker-compose up -d
 
-shell-web-local:
-	$(LOCAL) shell-web
+shell-web:
+	cd $(LOCAL); docker-compose exec web bash
 
-shell-db-local:
-	$(LOCAL) shell-db
+shell-db:
+	cd $(LOCAL); docker-compose exec db bash
 
-log-web-local:
-	$(LOCAL) log-web
+log-web:
+	cd $(LOCAL); docker-compose logs web
 
-log-db-local:
-	$(LOCAL) log-db
+log-db:
+	cd $(LOCAL); docker-compose logs db
 
-logs-local:
-	$(LOCAL) logs
+logs:
+	cd $(LOCAL); docker-compose logs -f
 
-collectstatic-local:
-	$(LOCAL) collectstatic
+collectstatic:
+	cd $(LOCAL); docker-compose exec -T web /bin/sh -c "python manage.py collectstatic --noinput"
 
-migrate-local:
-	$(LOCAL) migrate
+migrate:
+	cd $(LOCAL); docker-compose exec -T web /bin/sh -c "python manage.py migrate"
 
-migrations-local:
-	$(LOCAL) migrations
+migrations:
+	cd $(LOCAL); docker-compose exec -T web /bin/sh -c "python manage.py makemigrations"
 
-test-local:
-	$(LOCAL) test
+test:
+	cd $(LOCAL); docker-compose exec -T web /bin/sh -c "python manage.py test"
 
-pytest-local:
-	$(LOCAL) pytest
+TEST_DATE=`date +'%y_%m_%d_%H-%M-%S'`
+pytest:
+	cd $(LOCAL); docker-compose exec -T web /bin/sh -c "python -m pytest --junitxml=./test-reports/pytest_$(TEST_DATE).xml"
 
-loaddata-local:
-	$(LOCAL) loaddata
+touch:
+	cd $(LOCAL); docker-compose exec -T web /bin/sh -c "touch /app/touch-wsgi-reload"
 
-dumpdata-local:
-	$(LOCAL) dumpdata
-
-touch-local:
-	$(LOCAL) touch
-
-deploy-local:
-	$(LOCAL) deploy
+deploy: build backup-predeploy restart migrate collectstatic touch

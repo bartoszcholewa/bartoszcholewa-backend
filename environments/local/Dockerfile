@@ -38,4 +38,4 @@ RUN /usr/local/bin/python -m pip install --upgrade pip \
 
 COPY ./src .
 
-# CMD ["sh", "-c", "python manage.py runserver 0.0.0.0:8000"]
+CMD ["sh", "-c", "python manage.py runserver 0.0.0.0:8000"]
