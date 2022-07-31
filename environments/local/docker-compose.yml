@@ -1,0 +1,77 @@
+version: "3.9"
+
+volumes:
+  postgres_data: { }
+
+services:
+  web:
+    build:
+      context: ../../.
+      dockerfile: environments/local/Dockerfile
+    depends_on:
+      - db
+    volumes:
+      - ../../src:/app
+      - ../../_volumes_/media:/media
+      - ../../_volumes_/static:/static
+    expose:
+      - "8000"
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    networks:
+      - web
+      - network
+
+  db:
+    image: postgres:14.2-alpine
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - web
+      - network
+
+#  redis:
+#    image: redis:alpine
+#    networks:
+#      - network
+
+#  celery-worker:
+#    image: far_audyt_backend_web:local
+#    command: celery -A far_audyt worker -l info
+#    volumes:
+#      - ../../src:/app
+#      - ../../_volumes_/media:/media
+#    env_file:
+#      - .env
+#    depends_on:
+#      - db
+#      - redis
+#    networks:
+#      - web
+#      - network
+#
+#  celery-beat:
+#    image: far_audyt_backend_web:local
+#    command: celery -A far_audyt beat -l info
+#    volumes:
+#      - ../../src:/app
+#    env_file:
+#      - .env
+#    depends_on:
+#      - db
+#      - redis
+#    networks:
+#      - network
+
+networks:
+  web:
+    external: true
+  network:
+    internal: true
+

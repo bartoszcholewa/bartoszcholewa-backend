@@ -1,7 +1,61 @@
-deploy:
-	kubectl delete secret bartoszcholewa-secrets
-	kubectl create secret generic bartoszcholewa-secrets --from-env-file=src/.env.prod
-	docker build -t ghcr.io/bartoszcholewa/bartoszcholewa-backend-web:latest src/
-	docker push ghcr.io/bartoszcholewa/bartoszcholewa-backend-web:latest
-	kubectl delete -f k8s/django/bartoszcholewa-deployment.yaml
-	kubectl apply -f k8s/django/bartoszcholewa-deployment.yaml
+LOCAL=$(MAKE) -C environments/local
+
+status-local:
+	$(LOCAL) docker-compose ps
+
+build-local:
+	$(LOCAL) build
+
+up-local:
+	$(LOCAL) up
+
+stop-local:
+	$(LOCAL) stop
+
+down-local:
+	$(LOCAL) down
+
+restart-local:
+	$(LOCAL) restart
+
+shell-web-local:
+	$(LOCAL) shell-web
+
+shell-db-local:
+	$(LOCAL) shell-db
+
+log-web-local:
+	$(LOCAL) log-web
+
+log-db-local:
+	$(LOCAL) log-db
+
+logs-local:
+	$(LOCAL) logs
+
+collectstatic-local:
+	$(LOCAL) collectstatic
+
+migrate-local:
+	$(LOCAL) migrate
+
+migrations-local:
+	$(LOCAL) migrations
+
+test-local:
+	$(LOCAL) test
+
+pytest-local:
+	$(LOCAL) pytest
+
+loaddata-local:
+	$(LOCAL) loaddata
+
+dumpdata-local:
+	$(LOCAL) dumpdata
+
+touch-local:
+	$(LOCAL) touch
+
+deploy-local:
+	$(LOCAL) deploy

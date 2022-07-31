@@ -25,6 +25,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', False)
+
 GIT_COMMIT = os.environ.get('GIT_COMMIT', 'latest')
 RUN_NUMBER = os.environ.get('RUN_NUMBER', '0')
 
@@ -48,7 +49,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'storages',
-    'admin_footer',
 ]
 
 MIDDLEWARE = [

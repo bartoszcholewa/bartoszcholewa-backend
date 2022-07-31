@@ -130,8 +130,3 @@ dmypy.json
 
 # My own
 .idea
-.kube
-.hetzner-config
-.env*
-/ansible/.fact_cache/
-/ansible/inventory/bartoszcholewa.pl

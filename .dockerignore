@@ -132,6 +132,11 @@ dmypy.json
 .idea
 .kube
 .hetzner-config
-.env*
+.env
 /ansible/.fact_cache/
 /ansible/inventory/bartoszcholewa.pl
+/k8s/
+/images/
+/environments/
+/ansible/
+/_volumes_/

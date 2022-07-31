@@ -1,8 +1,6 @@
 name: Build Docker Container & Push to GitHub Registry
 
 on:
-  workflow_call:
-  workflow_dispatch:
   push:
     branches: [ main ]
   pull_request:
@@ -13,9 +11,11 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
+
   test_django_job:
     name: Test Django before build
     uses: bartoszcholewa/bartoszcholewa-backend/.github/workflows/test-django.yaml@main
+
   build_push_deploy_image_job:
     name: Build, push and deploy
     runs-on: ubuntu-latest
@@ -45,9 +45,11 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: ./src
+          context: ./environments/production/
           push: true
-          tags: ghcr.io/bartoszcholewa/bartoszcholewa-backend:latest,ghcr.io/bartoszcholewa/bartoszcholewa-backend:${{ steps.vars.outputs.sha_short }}
+          tags: |
+            ghcr.io/bartoszcholewa/bartoszcholewa-backend:latest
+            ghcr.io/bartoszcholewa/bartoszcholewa-backend:${{ steps.vars.outputs.sha_short }}
 
       - name: Create kubeconfig
         run: |
