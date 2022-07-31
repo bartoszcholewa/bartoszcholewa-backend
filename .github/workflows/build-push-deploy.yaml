@@ -50,7 +50,7 @@ jobs:
       - name: Create kubeconfig
         run: |
           mkdir ${HOME}/.kube
-          echo ${{ secret.KUBE_CONFIG_DATA }} | base64 --decode > ${HOME}/.kube/config
+          echo ${{ secrets.KUBE_CONFIG_DATA }} | base64 --decode > ${HOME}/.kube/config
 
       - name: Test Kubernetes Config
         run: kubectl get pods -w
