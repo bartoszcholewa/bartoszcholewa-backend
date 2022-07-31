@@ -45,7 +45,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: ./environments/production/
+          context: .
+          dockerfile: ./environments/production/Dockerfile
           push: true
           tags: |
             ghcr.io/bartoszcholewa/bartoszcholewa-backend:latest

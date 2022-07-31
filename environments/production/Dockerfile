@@ -17,7 +17,7 @@ RUN apt-get -y update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Zainstaluj pakiety
-COPY ../../src/requirements.txt .
+COPY ./src/requirements.txt .
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels -r requirements.txt
 
 # sciagnij oficialny obraz pythona
@@ -38,6 +38,6 @@ COPY --from=builder /app/requirements.txt .
 RUN /usr/local/bin/python -m pip install --upgrade pip \
     &&pip install --no-cache /wheels/*
 
-COPY ../../src .
+COPY ./src .
 
 CMD ["uwsgi", "--ini", "/app/uwsgi.ini"]
