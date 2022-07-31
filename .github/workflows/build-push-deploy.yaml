@@ -54,8 +54,8 @@ jobs:
           mkdir ${HOME}/.kube
           echo ${{ secrets.KUBE_CONFIG_DATA }} | base64 --decode > ${HOME}/.kube/config
 
-      - name: Update deployment secrets
-
+      #      - name: Update deployment secrets
+      #
 
       - name: Update Deployment image
         run: |
