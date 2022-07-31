@@ -6,6 +6,7 @@ on:
 
 jobs:
   django_test:
+    name: Test Django project
     runs-on: ubuntu-20.04
     defaults:
       run:
