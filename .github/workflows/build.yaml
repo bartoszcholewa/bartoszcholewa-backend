@@ -40,16 +40,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
           context: ./src
           push: true
-          tags: ${{ steps.meta.outputs.tags }}, ${{ steps.vars.outputs.sha_short }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ghcr.io/bartoszcholewa/bartoszcholewa-backend:latest,ghcr.io/bartoszcholewa/bartoszcholewa-backend:${{ steps.vars.outputs.sha_short }}
