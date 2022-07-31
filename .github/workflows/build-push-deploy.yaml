@@ -15,7 +15,7 @@ env:
 jobs:
   test_django_job:
     uses: bartoszcholewa/bartoszcholewa-backend/.github/workflows/test-django.yaml@main
-  build-and-push-image:
+  build_and_push_image_job:
     runs-on: ubuntu-latest
     needs: [ test_django_job ]
     permissions:
@@ -49,7 +49,7 @@ jobs:
 
   deploy-to-kubernetes:
     runs-on: ubuntu-latest
-    needs: [ test_django_job ]
+    needs: [ build_and_push_image_job ]
     steps:
       - name: Create kubeconfig
         run: |
